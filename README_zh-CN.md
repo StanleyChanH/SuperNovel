@@ -1,7 +1,6 @@
 # 📖 SuperNovel
 
-中文文档 | [English](./README.md) | [日本語](./README_ja.md) | [Français](./README_fr-FR.md) | [Sawcuengh](./README_sawcuengh.md)
-
+中文文档 | [English](./README.md) | [日本語](./README_ja.md) | [Français](./README_fr-FR.md)
 <div align="center">
 
 ✨ **核心功能** ✨
