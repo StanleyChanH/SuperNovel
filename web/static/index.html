@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SuperNovel</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📖</text></svg>">
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+  <!-- Mobile menu button -->
+  <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="菜单">
+    <svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+  </button>
+
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+      </svg>
+      Novel AI
+    </div>
+    <nav class="sidebar-nav">
+      <button class="nav-item active" data-view="create">
+        <svg viewBox="0 0 24 24"><path d="M12 3l1.5 4.5H18l-3.5 2.5L16 14.5 12 11.5 8 14.5l1.5-4.5L6 7.5h4.5z"/><path d="M5 3a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2H5z"/></svg>
+        创作
+      </button>
+      <button class="nav-item" data-view="config">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        配置
+      </button>
+      <button class="nav-item" data-view="architecture">
+        <svg viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+        架构
+      </button>
+      <button class="nav-item" data-view="blueprint">
+        <svg viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+        蓝图
+      </button>
+      <button class="nav-item" data-view="characters">
+        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        角色
+      </button>
+      <button class="nav-item" data-view="summary">
+        <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+        摘要
+      </button>
+      <button class="nav-item" data-view="chapters">
+        <svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+        章节
+      </button>
+      <button class="nav-item" data-view="settings">
+        <svg viewBox="0 0 24 24"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg>
+        设置
+      </button>
+    </nav>
+  </aside>
+
+  <!-- Main Area -->
+  <main class="main">
+    <header class="main-header">
+      <h1 id="view-title">创作工作台</h1>
+    </header>
+
+    <div class="main-content">
+
+      <!-- ==================== VIEW: CREATE ==================== -->
+      <div class="view active" id="view-create">
+
+        <!-- Novel Params Card -->
+        <div class="card">
+          <div class="card-title">
+            <svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+            小说参数
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">主题 (Topic)</label>
+            <textarea class="form-textarea" id="topic" placeholder="输入小说的主题和核心创意..." rows="3"></textarea>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">类型 (Genre)</label>
+              <input class="form-input" type="text" id="genre" placeholder="如：玄幻、科幻、言情">
+            </div>
+            <div class="form-group narrow">
+              <label class="form-label">章节数</label>
+              <input class="form-input" type="number" id="num_chapters" value="10" min="1">
+            </div>
+            <div class="form-group narrow">
+              <label class="form-label">每章字数</label>
+              <input class="form-input" type="number" id="word_number" value="3000" min="500">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">保存路径</label>
+            <div style="display:flex;gap:8px;">
+              <input class="form-input" type="text" id="filepath" placeholder="选择或输入小说文件的保存路径">
+              <button class="btn btn-secondary btn-sm" id="btnBrowse" title="浏览文件夹">浏览</button>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">当前章节号</label>
+            <input class="form-input" type="number" id="chapter_num" value="1" min="1" style="max-width:160px;">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">内容指导 (User Guidance)</label>
+            <textarea class="form-textarea" id="user_guidance" placeholder="输入对生成内容的补充指导..." rows="3"></textarea>
+          </div>
+        </div>
+
+        <!-- Optional Params Card -->
+        <div class="card">
+          <div class="collapsible-header" id="optionalParamsToggle">
+            <span class="card-title" style="margin-bottom:0;">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+              可选参数
+            </span>
+            <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+          <div class="collapsible-body" id="optionalParamsBody">
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">核心人物</label>
+                <input class="form-input" type="text" id="characters_involved" placeholder="角色名称，逗号分隔">
+              </div>
+              <div class="form-group">
+                <label class="form-label">关键道具</label>
+                <input class="form-input" type="text" id="key_items" placeholder="关键物品">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">空间坐标 (场景)</label>
+                <input class="form-input" type="text" id="scene_location" placeholder="场景地点">
+              </div>
+              <div class="form-group">
+                <label class="form-label">时间压力</label>
+                <input class="form-input" type="text" id="time_constraint" placeholder="时间限制">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Generation Actions Card -->
+        <div class="card">
+          <div class="card-title">
+            <svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            生成操作
+          </div>
+
+          <div class="btn-group mb-16">
+            <button class="btn btn-primary" id="btnGenerateArchitecture">
+              <svg viewBox="0 0 24 24" style="width:16px;height:16px;stroke:currentColor;stroke-width:2;fill:none;"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+              生成架构
+            </button>
+            <button class="btn btn-primary" id="btnGenerateBlueprint">
+              <svg viewBox="0 0 24 24" style="width:16px;height:16px;stroke:currentColor;stroke-width:2;fill:none;"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+              生成蓝图
+            </button>
+            <button class="btn btn-primary" id="btnGenerateChapter">
+              <svg viewBox="0 0 24 24" style="width:16px;height:16px;stroke:currentColor;stroke-width:2;fill:none;"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+              生成章节
+            </button>
+            <button class="btn btn-primary" id="btnFinalizeChapter">
+              <svg viewBox="0 0 24 24" style="width:16px;height:16px;stroke:currentColor;stroke-width:2;fill:none;"><polyline points="20 6 9 17 4 12"/></svg>
+              定稿
+            </button>
+          </div>
+
+          <div class="btn-group">
+            <button class="btn btn-secondary" id="btnConsistencyCheck">一致性审校</button>
+            <button class="btn btn-secondary" id="btnImportKnowledge">导入知识库</button>
+            <button class="btn btn-danger" id="btnClearVectorstore">清空向量库</button>
+            <button class="btn btn-secondary" id="btnPlotArcs">查看剧情要点</button>
+            <button class="btn btn-success" id="btnBatchGenerate">批量生成</button>
+          </div>
+        </div>
+
+        <!-- Custom Prompt Card -->
+        <div class="card">
+          <div class="collapsible-header" id="customPromptToggle">
+            <span class="card-title" style="margin-bottom:0;">
+              <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              自定义提示词 (高级)
+            </span>
+            <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+          <div class="collapsible-body" id="customPromptBody">
+            <div class="form-group mt-16">
+              <textarea class="form-textarea" id="custom_prompt" placeholder="在生成章节前可编辑自定义提示词..." rows="6"></textarea>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ==================== VIEW: CONFIG ==================== -->
+      <div class="view" id="view-config">
+
+        <!-- LLM Config Card -->
+        <div class="card">
+          <div class="card-title">
+            <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z"/><path d="M12 6v6l4 2"/></svg>
+            LLM 配置
+          </div>
+
+          <div class="config-selector-row">
+            <select class="form-select" id="llmConfigSelect">
+              <option>加载中...</option>
+            </select>
+            <button class="btn btn-success btn-sm" id="btnAddConfig">新增</button>
+            <button class="btn btn-sm btn-outline" id="btnRenameConfig">重命名</button>
+            <button class="btn btn-danger btn-sm" id="btnDeleteConfig">删除</button>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">API Key</label>
+            <input class="form-input" type="password" id="api_key" placeholder="输入 API Key">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Base URL</label>
+            <input class="form-input" type="text" id="base_url" placeholder="https://api.openai.com/v1">
+          </div>
+          <div class="form-group">
+            <label class="form-label">模型名称</label>
+            <input class="form-input" type="text" id="model_name" placeholder="gpt-4o-mini">
+          </div>
+          <div class="form-group">
+            <label class="form-label">接口格式</label>
+            <select class="form-select" id="interface_format">
+              <option value="OpenAI">OpenAI</option>
+              <option value="DeepSeek">DeepSeek</option>
+              <option value="Gemini">Gemini</option>
+              <option value="Azure OpenAI">Azure OpenAI</option>
+              <option value="Azure AI">Azure AI</option>
+              <option value="Ollama">Ollama</option>
+              <option value="ML Studio">ML Studio</option>
+              <option value="阿里云百炼">阿里云百炼</option>
+              <option value="火山引擎">火山引擎</option>
+              <option value="硅基流动">硅基流动</option>
+              <option value="Grok">Grok</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Temperature</label>
+            <div class="slider-group">
+              <input type="range" id="temperature" min="0" max="2" step="0.01" value="0.7">
+              <span class="slider-value" id="temperatureValue">0.70</span>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Max Tokens</label>
+              <input class="form-input" type="number" id="max_tokens" value="8192" min="1">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Timeout (秒)</label>
+              <input class="form-input" type="number" id="timeout" value="600" min="10">
+            </div>
+          </div>
+
+          <div class="btn-group mt-16">
+            <button class="btn btn-secondary" id="btnTestLLM">测试连接</button>
+            <button class="btn btn-primary" id="btnSaveLLMConfig">保存配置</button>
+          </div>
+        </div>
+
+        <!-- Embedding Config Card -->
+        <div class="card">
+          <div class="card-title">
+            <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
+            Embedding 配置
+          </div>
+
+          <div class="config-selector-row">
+            <select class="form-select" id="embeddingConfigSelect">
+              <option>加载中...</option>
+            </select>
+            <button class="btn btn-success btn-sm" id="btnAddEmbConfig">新增</button>
+            <button class="btn btn-sm btn-outline" id="btnRenameEmbConfig">重命名</button>
+            <button class="btn btn-danger btn-sm" id="btnDeleteEmbConfig">删除</button>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">接口格式</label>
+            <select class="form-select" id="embedding_interface_format">
+              <option value="OpenAI">OpenAI</option>
+              <option value="DeepSeek">DeepSeek</option>
+              <option value="Azure OpenAI">Azure OpenAI</option>
+              <option value="Gemini">Gemini</option>
+              <option value="Ollama">Ollama</option>
+              <option value="ML Studio">ML Studio</option>
+              <option value="SiliconFlow">SiliconFlow</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">API Key</label>
+            <input class="form-input" type="password" id="embedding_api_key" placeholder="Embedding API Key">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Base URL</label>
+            <input class="form-input" type="text" id="embedding_base_url" placeholder="https://api.openai.com/v1">
+          </div>
+          <div class="form-group">
+            <label class="form-label">模型名称</label>
+            <input class="form-input" type="text" id="embedding_model_name" placeholder="text-embedding-ada-002">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Retrieval Top-K</label>
+            <input class="form-input" type="number" id="embedding_retrieval_k" value="4" min="1" style="max-width:160px;">
+          </div>
+
+          <div class="btn-group mt-16">
+            <button class="btn btn-secondary" id="btnTestEmbedding">测试连接</button>
+          </div>
+        </div>
+
+        <!-- Step Config Card -->
+        <div class="card">
+          <div class="card-title">
+            <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            步骤配置 - 各步骤使用的大模型
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">架构生成</label>
+            <select class="form-select" id="architecture_llm"></select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">蓝图生成</label>
+            <select class="form-select" id="chapter_outline_llm"></select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">草稿/章节生成</label>
+            <select class="form-select" id="prompt_draft_llm"></select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">定稿</label>
+            <select class="form-select" id="final_chapter_llm"></select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">一致性审校</label>
+            <select class="form-select" id="consistency_review_llm"></select>
+          </div>
+
+          <div class="btn-group mt-16">
+            <button class="btn btn-primary" id="btnSaveStepConfig">保存步骤配置</button>
+            <button class="btn btn-secondary" id="btnRefreshStepConfig">刷新配置</button>
+          </div>
+        </div>
+
+        <!-- Proxy Config Card -->
+        <div class="card">
+          <div class="card-title">
+            <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
+            代理设置
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">启用代理</label>
+            <label class="toggle-switch">
+              <input type="checkbox" id="proxy_enabled">
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">代理地址</label>
+              <input class="form-input" type="text" id="proxy_url" placeholder="127.0.0.1">
+            </div>
+            <div class="form-group narrow">
+              <label class="form-label">端口</label>
+              <input class="form-input" type="text" id="proxy_port" placeholder="10809">
+            </div>
+          </div>
+
+          <div class="btn-group mt-16">
+            <button class="btn btn-primary" id="btnSaveProxy">保存代理设置</button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ==================== VIEW: ARCHITECTURE ==================== -->
+      <div class="view" id="view-architecture">
+        <div class="card">
+          <div class="card-title">
+            <svg viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+            小说架构 (Novel_architecture.txt)
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+            <div class="btn-group">
+              <button class="btn btn-secondary btn-sm" id="btnLoadArchitecture">加载文件</button>
+              <button class="btn btn-primary btn-sm" id="btnSaveArchitecture">保存修改</button>
+            </div>
+            <span class="word-count" id="architectureWordCount">字数：0</span>
+          </div>
+          <textarea class="form-textarea tall" id="architectureContent" placeholder="加载或生成小说架构后在此显示..."></textarea>
+        </div>
+      </div>
+
+      <!-- ==================== VIEW: BLUEPRINT ==================== -->
+      <div class="view" id="view-blueprint">
+        <div class="card">
+          <div class="card-title">
+            <svg viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+            章节蓝图 (Novel_directory.txt)
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+            <div class="btn-group">
+              <button class="btn btn-secondary btn-sm" id="btnLoadBlueprint">加载文件</button>
+              <button class="btn btn-primary btn-sm" id="btnSaveBlueprint">保存修改</button>
+            </div>
+            <span class="word-count" id="blueprintWordCount">字数：0</span>
+          </div>
+          <textarea class="form-textarea tall" id="blueprintContent" placeholder="加载或生成章节蓝图后在此显示..."></textarea>
+        </div>
+      </div>
+
+      <!-- ==================== VIEW: CHARACTERS ==================== -->
+      <div class="view" id="view-characters">
+
+        <!-- Character State Card -->
+        <div class="card">
+          <div class="card-title">
+            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            角色状态 (character_state.txt)
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+            <div class="btn-group">
+              <button class="btn btn-secondary btn-sm" id="btnLoadCharState">加载文件</button>
+              <button class="btn btn-primary btn-sm" id="btnSaveCharState">保存修改</button>
+            </div>
+            <span class="word-count" id="charStateWordCount">字数：0</span>
+          </div>
+          <textarea class="form-textarea tall" id="charStateContent" placeholder="加载或生成角色状态后在此显示..."></textarea>
+        </div>
+
+        <!-- Role Library Card -->
+        <div class="card">
+          <div class="card-title">
+            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            角色库
+          </div>
+
+          <div class="tab-bar" id="roleCategoryTabs">
+            <button class="tab-item active" data-category="全部">全部</button>
+          </div>
+
+          <div class="role-layout">
+            <div class="role-list-panel" id="roleListPanel">
+              <div class="empty-state">
+                <p>选择分类查看角色</p>
+              </div>
+            </div>
+            <div class="role-editor">
+              <div class="form-group">
+                <label class="form-label">角色名称</label>
+                <input class="form-input" type="text" id="roleName" placeholder="角色名称">
+              </div>
+              <div class="form-group">
+                <label class="form-label">角色内容</label>
+                <textarea class="form-textarea" id="roleContent" placeholder="角色详细信息..." style="min-height:260px;"></textarea>
+              </div>
+              <div class="btn-group">
+                <button class="btn btn-primary btn-sm" id="btnSaveRole">保存角色</button>
+                <button class="btn btn-danger btn-sm" id="btnDeleteRole">删除角色</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ==================== VIEW: SUMMARY ==================== -->
+      <div class="view" id="view-summary">
+        <div class="card">
+          <div class="card-title">
+            <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+            全局摘要 (global_summary.txt)
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+            <div class="btn-group">
+              <button class="btn btn-secondary btn-sm" id="btnLoadSummary">加载文件</button>
+              <button class="btn btn-primary btn-sm" id="btnSaveSummary">保存修改</button>
+            </div>
+            <span class="word-count" id="summaryWordCount">字数：0</span>
+          </div>
+          <textarea class="form-textarea tall" id="summaryContent" placeholder="加载或生成全局摘要后在此显示..."></textarea>
+        </div>
+      </div>
+
+      <!-- ==================== VIEW: CHAPTERS ==================== -->
+      <div class="view" id="view-chapters">
+        <div class="card">
+          <div class="card-title">
+            <svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+            章节管理
+          </div>
+
+          <div class="chapter-nav" style="margin-bottom:16px;">
+            <button class="btn btn-secondary btn-sm" id="btnRefreshChapters">刷新章节列表</button>
+            <select class="form-select" id="chapterSelect" style="max-width:180px;">
+              <option value="">选择章节</option>
+            </select>
+            <button class="btn btn-secondary btn-sm" id="btnPrevChapter">&laquo; 上一章</button>
+            <button class="btn btn-secondary btn-sm" id="btnNextChapter">下一章 &raquo;</button>
+            <button class="btn btn-primary btn-sm" id="btnSaveChapter">保存修改</button>
+            <span class="word-count" id="chapterWordCount">字数：0</span>
+          </div>
+
+          <textarea class="form-textarea tall" id="chapterContent" placeholder="选择章节后内容在此显示..."></textarea>
+        </div>
+      </div>
+
+      <!-- ==================== VIEW: SETTINGS ==================== -->
+      <div class="view" id="view-settings">
+        <div class="card">
+          <div class="card-title">
+            <svg viewBox="0 0 24 24"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg>
+            语言设置
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">界面语言</label>
+            <div style="display:flex;gap:8px;">
+              <button class="btn btn-primary btn-sm" id="btnLangChinese">中文</button>
+              <button class="btn btn-secondary btn-sm" id="btnLangEnglish">English</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">
+            <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            WebDAV 同步
+          </div>
+          <div class="form-group">
+            <label class="form-label">WebDAV URL</label>
+            <input class="form-input" type="text" id="webdav_url" placeholder="WebDAV 服务地址">
+          </div>
+          <div class="form-group">
+            <label class="form-label">用户名</label>
+            <input class="form-input" type="text" id="webdav_username" placeholder="WebDAV 用户名">
+          </div>
+          <div class="form-group">
+            <label class="form-label">密码</label>
+            <input class="form-input" type="password" id="webdav_password" placeholder="WebDAV 密码">
+          </div>
+          <div class="btn-group mt-16">
+            <button class="btn btn-secondary btn-sm" id="btnTestWebDAV">测试连接</button>
+            <button class="btn btn-primary btn-sm" id="btnBackupWebDAV">备份配置</button>
+            <button class="btn btn-outline btn-sm" id="btnRestoreWebDAV">恢复配置</button>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /main-content -->
+
+    <!-- Log Panel -->
+    <div class="log-panel" id="logPanel">
+      <div class="log-header">
+        <span>日志</span>
+        <div class="log-header-buttons">
+          <button id="btnClearLog">清空</button>
+          <button id="btnToggleLog">收起</button>
+        </div>
+      </div>
+      <div id="log-content"></div>
+    </div>
+
+  </main>
+
+  <!-- Hidden file input for knowledge import -->
+  <input type="file" id="knowledgeFileInput" accept=".txt" style="display:none;">
+
+  <script src="/static/js/app.js"></script>
+</body>
+</html>

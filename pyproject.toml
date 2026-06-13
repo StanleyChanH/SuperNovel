@@ -1,0 +1,38 @@
+[project]
+name = "supernovel"
+version = "2.0.0"
+description = "基于大语言模型的长篇小说生成工具，配备苹果风格 Web UI"
+requires-python = ">=3.11"
+dependencies = [
+    "azure-ai-inference==1.0.0b9",
+    "azure-core==1.35.0",
+    "chromadb==1.0.20",
+    "fastapi==0.115.0",
+    "google-auth==2.49.0",
+    "google-genai==1.73.1",
+    "googleapis-common-protos==1.70.0",
+    "langchain==0.3.27",
+    "langchain-chroma==0.2.5",
+    "langchain-openai==0.3.32",
+    "nltk==3.9.1",
+    "numpy==2.3.2",
+    "openai==1.106.1",
+    "protobuf==5.29.5",
+    "python-multipart==0.0.18",
+    "requests==2.32.5",
+    "uvicorn==0.34.0",
+]
+
+[project.optional-dependencies]
+desktop = ["customtkinter==5.2.2"]
+dev = ["pyinstaller>=6.0", "pytest>=8.0"]
+
+[project.scripts]
+novel-web = "web.app:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["novel_generator", "web"]

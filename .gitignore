@@ -1,0 +1,34 @@
+# Virtual environments
+/.venv
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Build artifacts
+/build
+/dist
+
+# IDE
+/.vscode
+.idea/
+
+# Config with secrets
+config.json
+config_test.json
+
+# Runtime logs
+app.log
+
+# Vector database (generated, large)
+/vectorstore
+
+# Output directories
+/Novel_Src
+/novel
+/example
+/backup
+/markdown
+test.py
+
+.omc/
