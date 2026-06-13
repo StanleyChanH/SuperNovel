@@ -529,19 +529,21 @@
           </div>
 
           <div class="form-group">
-            <label class="form-label">界面语言</label>
+            <label class="form-label">界面语言 <span style="color:#8e8e93;font-size:12px;">（开发中）</span></label>
             <div style="display:flex;gap:8px;">
-              <button class="btn btn-primary btn-sm" id="btnLangChinese">中文</button>
-              <button class="btn btn-secondary btn-sm" id="btnLangEnglish">English</button>
+              <button class="btn btn-primary btn-sm" id="btnLangChinese" disabled>中文</button>
+              <button class="btn btn-secondary btn-sm" id="btnLangEnglish" disabled>English</button>
             </div>
+            <p style="color:#8e8e93;font-size:12px;margin-top:6px;">界面多语言翻译正在开发中，当前仅支持中文。</p>
           </div>
         </div>
 
         <div class="card">
           <div class="card-title">
             <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-            WebDAV 同步
+            WebDAV 同步 <span style="color:#8e8e93;font-size:12px;">（开发中）</span>
           </div>
+          <p style="color:#8e8e93;font-size:12px;margin-bottom:12px;">⚠️ 此功能正在开发中，暂不可用。</p>
           <div class="form-group">
             <label class="form-label">WebDAV URL</label>
             <input class="form-input" type="text" id="webdav_url" placeholder="WebDAV 服务地址">
@@ -555,9 +557,9 @@
             <input class="form-input" type="password" id="webdav_password" placeholder="WebDAV 密码">
           </div>
           <div class="btn-group mt-16">
-            <button class="btn btn-secondary btn-sm" id="btnTestWebDAV">测试连接</button>
-            <button class="btn btn-primary btn-sm" id="btnBackupWebDAV">备份配置</button>
-            <button class="btn btn-outline btn-sm" id="btnRestoreWebDAV">恢复配置</button>
+            <button class="btn btn-secondary btn-sm" id="btnTestWebDAV" disabled>测试连接</button>
+            <button class="btn btn-primary btn-sm" id="btnBackupWebDAV" disabled>备份配置</button>
+            <button class="btn btn-outline btn-sm" id="btnRestoreWebDAV" disabled>恢复配置</button>
           </div>
         </div>
       </div>

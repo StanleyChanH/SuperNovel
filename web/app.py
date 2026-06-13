@@ -185,12 +185,6 @@ class RoleDeleteBody(BaseModel):
     role_name: str
 
 
-class RoleContentBody(BaseModel):
-    filepath: str
-    category: str
-    role_name: str
-
-
 class RoleAnalyzeBody(BaseModel):
     filepath: str
     llm_config_name: str
@@ -453,7 +447,7 @@ async def api_generate_chapter(body: ChapterBody):
 
         def _run():
             log_func(f"Starting chapter {body.novel_number} generation...")
-            generate_chapter_draft(
+            content = generate_chapter_draft(
                 api_key=llm_cfg["api_key"],
                 base_url=llm_cfg["base_url"],
                 model_name=llm_cfg["model_name"],
@@ -477,9 +471,10 @@ async def api_generate_chapter(body: ChapterBody):
                 custom_prompt_text=body.custom_prompt_text,
             )
             log_func(f"Chapter {body.novel_number} generation completed.")
+            return content
 
-        await loop.run_in_executor(None, _run)
-        return {"status": "ok"}
+        content = await loop.run_in_executor(None, _run)
+        return {"status": "ok", "content": content}
     except Exception as e:
         logger.exception("Chapter generation failed")
         return {"status": "error", "message": str(e)}
@@ -859,13 +854,15 @@ async def api_role_list(category: str, filepath: str = ""):
     return {"status": "ok", "roles": roles}
 
 
-@app.post("/api/roles/content")
-async def api_role_content(body: RoleContentBody):
-    role_path = os.path.join(_role_library_dir(body.filepath), body.category, f"{body.role_name}.txt")
+@app.get("/api/roles/content")
+async def api_role_content(filepath: str = "", category: str = "", name: str = ""):
+    if not filepath:
+        return {"status": "error", "message": "filepath is required"}
+    role_path = os.path.join(_role_library_dir(filepath), category, f"{name}.txt")
     content = read_file(role_path)
     if not content:
         return {"status": "error", "message": "Role not found"}
-    return {"status": "ok", "content": content}
+    return {"status": "ok", "content": content, "name": name}
 
 
 @app.post("/api/roles/save")
@@ -952,7 +949,7 @@ async def websocket_endpoint(ws: WebSocket):
 def main():
     """Entry point for `uv run novel-web` or `python -m web.app`."""
     import uvicorn
-    uvicorn.run("web.app:app", host="0.0.0.0", port=8000, reload=False)
+    uvicorn.run("web.app:app", host="127.0.0.1", port=8000, reload=False)
 
 
 if __name__ == "__main__":

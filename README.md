@@ -99,7 +99,7 @@ cd SuperNovel
 uv sync
 
 # Or with pip
-pip install -r requirements.txt
+pip install -e .
 ```
 
 ### Run the Web App

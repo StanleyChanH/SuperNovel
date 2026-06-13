@@ -554,8 +554,8 @@
         showToast('LLM 连接测试成功', 'success');
         appendLog('LLM 测试通过');
       } else {
-        showToast('测试失败: ' + (result.error || '未知错误'), 'error');
-        appendLog('LLM 测试失败: ' + (result.error || ''));
+        showToast('测试失败: ' + (result.message || '未知错误'), 'error');
+        appendLog('LLM 测试失败: ' + (result.message || ''));
       }
     } catch (e) {
       showToast('测试失败: ' + e.message, 'error');
@@ -576,7 +576,7 @@
         showToast('Embedding 连接测试成功', 'success');
         appendLog('Embedding 测试通过');
       } else {
-        showToast('测试失败: ' + (result.error || '未知错误'), 'error');
+        showToast('测试失败: ' + (result.message || '未知错误'), 'error');
       }
     } catch (e) {
       showToast('测试失败: ' + e.message, 'error');
@@ -666,7 +666,7 @@
         showToast('小说架构生成完成', 'success');
         appendLog('小说架构生成完成，请在架构页面查看');
       } else {
-        showToast('生成失败: ' + (result.error || ''), 'error');
+        showToast('生成失败: ' + (result.message || ''), 'error');
       }
     } catch (e) {
       showToast('生成出错: ' + e.message, 'error');
@@ -694,7 +694,7 @@
         showToast('章节蓝图生成完成', 'success');
         appendLog('章节蓝图生成完成，请在蓝图页面查看');
       } else {
-        showToast('生成失败: ' + (result.error || ''), 'error');
+        showToast('生成失败: ' + (result.message || ''), 'error');
       }
     } catch (e) {
       showToast('生成出错: ' + e.message, 'error');
@@ -738,7 +738,7 @@
           setVal('chapterContent', result.content);
         }
       } else {
-        showToast('生成失败: ' + (result.error || ''), 'error');
+        showToast('生成失败: ' + (result.message || ''), 'error');
       }
     } catch (e) {
       showToast('生成出错: ' + e.message, 'error');
@@ -768,7 +768,7 @@
         showToast('第' + chapNum + '章定稿完成', 'success');
         appendLog('第' + chapNum + '章定稿完成');
       } else {
-        showToast('定稿失败: ' + (result.error || ''), 'error');
+        showToast('定稿失败: ' + (result.message || ''), 'error');
       }
     } catch (e) {
       showToast('定稿出错: ' + e.message, 'error');
@@ -793,11 +793,11 @@
       });
       if (result.status === 'ok') {
         showToast('一致性审校完成', 'success');
-        if (result.report) {
-          appendLog('审校结果: ' + result.report);
+        if (result.result) {
+          appendLog('审校结果: ' + result.result);
         }
       } else {
-        showToast('审校失败: ' + (result.error || ''), 'error');
+        showToast('审校失败: ' + (result.message || ''), 'error');
       }
     } catch (e) {
       showToast('审校出错: ' + e.message, 'error');
@@ -840,7 +840,7 @@
         showToast('批量生成完成', 'success');
         appendLog('批量生成全部完成');
       } else {
-        showToast('批量生成失败: ' + (result.error || ''), 'error');
+        showToast('批量生成失败: ' + (result.message || ''), 'error');
       }
     } catch (e) {
       showToast('批量生成出错: ' + e.message, 'error');
@@ -1005,7 +1005,7 @@
           showToast('知识库导入完成', 'success');
           appendLog('知识库文件导入完成');
         } else {
-          showToast('导入失败: ' + (result.error || ''), 'error');
+          showToast('导入失败: ' + (result.message || ''), 'error');
         }
       } catch (e) {
         showToast('导入失败: ' + e.message, 'error');
@@ -1367,6 +1367,28 @@
       if (defaults[format]) {
         setVal('embedding_base_url', defaults[format].url);
         setVal('embedding_model_name', defaults[format].model);
+      }
+    });
+
+    // LLM interface format presets: auto-fill base_url / model_name hints
+    document.getElementById('interface_format').addEventListener('change', function () {
+      var format = this.value;
+      var defaults = {
+        'OpenAI': { url: 'https://api.openai.com/v1', model: 'gpt-4o-mini' },
+        'DeepSeek': { url: 'https://api.deepseek.com/v1', model: 'deepseek-chat' },
+        'Gemini': { url: 'https://generativelanguage.googleapis.com/v1beta', model: 'gemini-2.5-flash' },
+        'Azure OpenAI': { url: 'https://<resource>.openai.azure.com/openai/deployments/<deployment>/chat/completions?api-version=2024-02-15-preview', model: '' },
+        'Azure AI': { url: 'https://<name>.services.ai.azure.com/models/chat/completions?api-version=2024-05-01-preview', model: '' },
+        'Ollama': { url: 'http://localhost:11434/v1', model: 'llama3.1' },
+        'ML Studio': { url: 'http://localhost:1234/v1', model: '' },
+        '阿里云百炼': { url: 'https://dashscope.aliyuncs.com/compatible-mode/v1', model: 'qwen-plus' },
+        '火山引擎': { url: 'https://ark.cn-beijing.volces.com/api/v3', model: '' },
+        '硅基流动': { url: 'https://api.siliconflow.cn/v1', model: 'deepseek-ai/DeepSeek-V3' },
+        'Grok': { url: 'https://api.x.ai/v1', model: 'grok-2' },
+      };
+      if (defaults[format]) {
+        setVal('base_url', defaults[format].url);
+        setVal('model_name', defaults[format].model);
       }
     });
 
